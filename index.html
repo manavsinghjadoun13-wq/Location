@@ -46,14 +46,20 @@
             });
         });
 
-        function successCallback(position) {
+                function successCallback(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
-            // Send the data to your Node.js backend server
-            fetch('/api/location', {
+            // Send the data directly to your live online Render backend server
+            fetch('https://onrender.com', {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ latitude, longitude })
+            })
+            .then(response => {
+            
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ latitude, longitude })
