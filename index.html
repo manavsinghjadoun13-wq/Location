@@ -47,7 +47,7 @@
             const longitude = position.coords.longitude;
 
             // CHANGE "your-app-name" TO YOUR ACTUAL LIVE RENDER URL LINK BELOW:
-            fetch('https://onrender.com', {
+            fetch(window.location.origin + '/api/location', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
