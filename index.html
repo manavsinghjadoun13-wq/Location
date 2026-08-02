@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Location</title>
     <style>
-        /* Makes the entire page white, unscrollable, and clickable */
         html, body {
             margin: 0;
             padding: 0;
@@ -19,7 +18,6 @@
             cursor: pointer;
             user-select: none;
         }
-        /* Style for the central text */
         .click-text {
             font-size: 24px;
             color: #333333;
@@ -31,14 +29,12 @@
     <div class="click-text">Click here</div>
 
     <script>
-        // Listen for a click anywhere on the page
         document.body.addEventListener('click', () => {
             if (!navigator.geolocation) {
                 alert('Geolocation is not supported by your browser.');
                 return;
             }
 
-            // Request the user's current position
             navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {
                 enableHighAccuracy: true,
                 timeout: 10000,
@@ -46,11 +42,11 @@
             });
         });
 
-                function successCallback(position) {
+        function successCallback(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
-            // Send the data directly to your live online Render backend server
+            // CHANGE "your-app-name" TO YOUR ACTUAL LIVE RENDER URL LINK BELOW:
             fetch('https://onrender.com', {
                 method: 'POST',
                 headers: {
@@ -59,16 +55,10 @@
                 body: JSON.stringify({ latitude, longitude })
             })
             .then(response => {
-            
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ latitude, longitude })
-            })
-            .then(response => {
                 if (response.ok) {
-                    alert('Done!');
+                    alert('Done');
                 } else {
-                    alert('Failed.');
+                    alert('Failed to send location.');
                 }
             })
             .catch(error => {
@@ -80,13 +70,13 @@
         function errorCallback(error) {
             switch(error.code) {
                 case error.PERMISSION_DENIED:
-                    alert("User denied the request.");
+                    alert("User denied the request for Geolocation.");
                     break;
                 case error.POSITION_UNAVAILABLE:
-                    alert("information is unavailable.");
+                    alert("Location information is unavailable.");
                     break;
                 case error.TIMEOUT:
-                    alert("The request to get user timed out.");
+                    alert("The request to get user location timed out.");
                     break;
                 case error.UNKNOWN_ERROR:
                     alert("An unknown error occurred.");
